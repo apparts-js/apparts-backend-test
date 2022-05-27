@@ -1,5 +1,5 @@
 const { Client } = require("pg");
-const connect = require("@apparts/db");
+const { connect } = require("@apparts/db");
 
 let dbs = null;
 

@@ -1,4 +1,4 @@
-const connect = require("@apparts/db");
+const { connect } = require("@apparts/db");
 
 const error = (error, description) =>
   description ? { error, description } : { error };

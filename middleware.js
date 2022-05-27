@@ -1,5 +1,5 @@
 const bodyParser = require("body-parser");
-const connect = require("@apparts/db");
+const { connect } = require("@apparts/db");
 
 let DB_CONFIG = null;
 let dbs = undefined;
