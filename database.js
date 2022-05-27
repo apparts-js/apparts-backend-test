@@ -33,19 +33,9 @@ const setup = async (schemas, setupSql, databaseName) => {
   }
   await pool.end();
   if (dbs) {
-    await new Promise((res) => dbs.shutdown(() => res()));
+    await dbs.shutdown();
   }
-  dbs = await new Promise((res) => {
-    connect({ use: "postgresql", postgresql: pg_config }, (e, newDbs) => {
-      if (e) {
-        /* istanbul ignore next */
-        console.log("DB ERROR");
-        throw e;
-      }
-      console.log("Connected to DB for tests");
-      res(newDbs);
-    });
-  });
+  dbs = await connect({ use: "postgresql", postgresql: pg_config });
   return dbs;
 };
 
