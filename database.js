@@ -47,7 +47,7 @@ const teardown = async () => {
   if (dbs) {
     const tempDbs = dbs;
     dbs = null;
-    await new Promise((res) => tempDbs.shutdown(() => res()));
+    await tempDbs.shutdown();
   }
 };
 
