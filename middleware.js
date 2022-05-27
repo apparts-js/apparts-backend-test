@@ -5,15 +5,22 @@ let DB_CONFIG = null;
 let dbs = undefined;
 const getDBPool = (next) => {
   if (dbs === undefined) {
-    connect(DB_CONFIG, (e, newDbs) => {
-      if (e) {
-        /* istanbul ignore next */
-        console.log("DB ERROR");
+    dbs = connect(DB_CONFIG);
+    dbs
+      .then((newDbs) => {
+        dbs = newDbs;
+        next(dbs);
+      })
+      .catch((e) => {
+        /* istanbul ignore next */ /* eslint-disable-next-line no-restricted-globals */
+        console.log("DBS Error");
         console.log(e);
+        dbs = null;
         throw e;
-      }
-      dbs = newDbs;
-      next(dbs);
+      });
+  } else if (dbs instanceof Promise) {
+    dbs.finally(() => {
+      getDBPool(next);
     });
   } else {
     /* istanbul ignore next */
