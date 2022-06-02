@@ -1,6 +1,6 @@
 {
   "name": "@apparts/backend-test",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "A framework for database-incorborating backend-testing",
   "main": "index.js",
   "scripts": {
