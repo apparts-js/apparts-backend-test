@@ -44,13 +44,7 @@ const applyMiddleware = (route, dbConfig) => {
 module.exports = applyMiddleware;
 module.exports.shutdown = () => {
   if (dbs) {
-    return new Promise((res) => {
-      dbs.shutdown(() => {
-        dbs = undefined;
-        res();
-      });
-    });
+    return dbs.shutdown();
   }
-
   return Promise.resolve();
 };
