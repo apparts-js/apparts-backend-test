@@ -3,7 +3,7 @@ const jestConfig = require("./jest.config.js");
 const defaultTestApp = require("./test-app");
 const fs = require("fs");
 
-const { useChecks } = require("@apparts/types");
+const { useChecks } = require("@apparts/prep");
 
 const { setup, teardown, getPool } = require("./database");
 
