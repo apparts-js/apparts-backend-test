@@ -22,7 +22,7 @@
   "peerDependencies": {
     "@apparts/config": "^1.2.1",
     "@apparts/db": "^3.1.0",
-    "@apparts/prep": "^1.0.0"
+    "@apparts/prep": "^2.0.0"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
