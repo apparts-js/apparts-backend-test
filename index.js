@@ -10,6 +10,7 @@ const { setup, teardown, getPool } = require("./database");
 module.exports = ({
   testApp = defaultTestApp,
   apiContainer,
+  prepareEndpoint,
   apiVersion = 1,
   schemas = [],
   databasePreparations = [],
@@ -38,7 +39,7 @@ Also make sure, in your package.json there is no jest configuration.
 
   if (!apiVersion || !testName) {
     throw new Error(
-      '"apiVersion" or "testName" missing in @apparts/backend-test'
+      '"apiVersion" or "testName" missing in @apparts/backend-test',
     );
   }
 
@@ -75,16 +76,16 @@ Also make sure, in your package.json there is no jest configuration.
 
   return {
     ...(apiContainer
-      ? useChecks(apiContainer)
+      ? useChecks(apiContainer, prepareEndpoint)
       : {
           checkType: () => {
             throw new Error(
-              "checkType called, but apiContainer undefined. Supply a valid apiContainer to @apparts/backend-test"
+              "checkType called, but apiContainer undefined. Supply a valid apiContainer to @apparts/backend-test",
             );
           },
           allChecked: () => {
             throw new Error(
-              "allChecked called, but apiContainer undefined. Supply a valid apiContainer to @apparts/backend-test"
+              "allChecked called, but apiContainer undefined. Supply a valid apiContainer to @apparts/backend-test",
             );
           },
         }),
