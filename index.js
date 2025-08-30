@@ -15,10 +15,11 @@ module.exports = ({
   schemas = [],
   databasePreparations = [],
   testName,
+  vitest = false,
 }) => {
   try {
     const file = fs.readFileSync("jest.config.js");
-    if (!file.toString().match(/@apparts\/backend-test/)) {
+    if (!vitest && !file.toString().match(/@apparts\/backend-test/)) {
       throw new Error("Ups");
     }
   } catch (e) {
@@ -39,7 +40,7 @@ Also make sure, in your package.json there is no jest configuration.
 
   if (!apiVersion || !testName) {
     throw new Error(
-      '"apiVersion" or "testName" missing in @apparts/backend-test',
+      '"apiVersion" or "testName" missing in @apparts/backend-test'
     );
   }
 
@@ -69,9 +70,11 @@ Also make sure, in your package.json there is no jest configuration.
     await teardown(databaseName);
     await testApp.shutdown();
 
-    // avoid jest open handle error
-    // https://github.com/visionmedia/supertest/issues/520#issuecomment-469044925
-    await new Promise((resolve) => setTimeout(() => resolve(), 500));
+    if (!vitest) {
+      // avoid jest open handle error
+      // https://github.com/visionmedia/supertest/issues/520#issuecomment-469044925
+      await new Promise((resolve) => setTimeout(() => resolve(), 500));
+    }
   }, 60000);
 
   return {
@@ -80,12 +83,12 @@ Also make sure, in your package.json there is no jest configuration.
       : {
           checkType: () => {
             throw new Error(
-              "checkType called, but apiContainer undefined. Supply a valid apiContainer to @apparts/backend-test",
+              "checkType called, but apiContainer undefined. Supply a valid apiContainer to @apparts/backend-test"
             );
           },
           allChecked: () => {
             throw new Error(
-              "allChecked called, but apiContainer undefined. Supply a valid apiContainer to @apparts/backend-test",
+              "allChecked called, but apiContainer undefined. Supply a valid apiContainer to @apparts/backend-test"
             );
           },
         }),
